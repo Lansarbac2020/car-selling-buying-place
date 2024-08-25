@@ -4,6 +4,7 @@ import { SignInButton } from '@clerk/clerk-react'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Category from './components/Category'
+import MostSearchedCar from './components/MostSearchedCar'
 
 const Home = () => {
   return (
@@ -14,6 +15,8 @@ const Home = () => {
     <Hero/>
     {/* category */}
     <Category/>
+    {/* MostSearchedCar */}
+    <MostSearchedCar/>
     </div>
   )
 }
