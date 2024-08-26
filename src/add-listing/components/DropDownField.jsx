@@ -8,10 +8,10 @@ import {
   } from "@/components/ui/select"
   
 
-function DropDownField({item}) {
+function DropDownField({item,handleInputChange}) {
   return (
     <div>
-    <Select>
+    <Select required={item.required} onValueChange={(value)=>handleInputChange(item.name,value) }>
     <SelectTrigger className="w-full">
       <SelectValue placeholder={item.label} />
     </SelectTrigger>

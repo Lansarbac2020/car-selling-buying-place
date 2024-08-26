@@ -1,14 +1,42 @@
 import Header from '@/components/Header'
-import React from 'react'
+import React, { useState } from 'react'
 import carDetails from './../shared/carDetails.json'
 import InputField from './components/InputField'
 import DropDownField from './components/DropDownField'
 import TextAreaField from './components/TextAreaField'  
 import { Separator } from '@/components/ui/separator'
 import features from './../shared/features.json'
-import CheckBox from './components/CheckBox'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import { db } from './../../config'
+import { CarListing } from './../../config/schema'
 
 function AddNewListing() {
+    const [formData, setFormData]=useState([]);
+
+    const handleInputChange=(name,value)=>{
+         setFormData((prevData)=>({
+             ...prevData,
+             [name]:value
+         }))
+         console.log(formData);
+    }
+    const onSubmit=async(e)=>{
+        e.preventDefault();
+        //console.log("formdata",formData);
+        try{
+        const result= await db.insert(CarListing).values(formData);
+        if(result)
+        {
+           console.log("success")
+        }
+
+    }catch(error){
+        console.log("Error",error);
+    
+    }
+    }
+
   return (
     <div>
         <Header/>
@@ -24,9 +52,9 @@ function AddNewListing() {
         <div key={index}>
  <label className='text-sm'>{item?.label}{ item.required&&<span className='text-red-700'>*</span>}</label>
              {item.fieldType=='text'|| item.fieldType=='number'
-              ? <InputField item={item}/>
-              :item.fieldType=='dropdown'?<DropDownField item={item}/>
-              : item.fieldType=='textarea'?<TextAreaField item={item}/>
+              ? <InputField item={item} handleInputChange={handleInputChange}/>
+              :item.fieldType=='dropdown'?<DropDownField item={item} handleInputChange={handleInputChange}/>
+              : item.fieldType=='textarea'?<TextAreaField item={item} handleInputChange={handleInputChange}/>
               : null}
         </div>
       ))           
@@ -37,16 +65,22 @@ function AddNewListing() {
         {/* features list */}
          <div>
             <h2 className='font-medium text-xl my-6'>Features</h2>
-            <div>
+            <div className='grid grid-cols-2 md:grid-cols-3 gap-3'>
                 {features.features.map((item,index)=>(
-                    <div key={index}>
-                        <CheckBox/> <h2>{item.label}</h2>
+                    <div key={index} className='flex gap-2 items-center'>
+                       <Checkbox onCheckedChange={(value)=>handleInputChange(item.name, value)}/> <h2>{item.label} 
+                        
+                        </h2>
                     </div>
                 ))}
             </div>
          </div>
         {/* car images */}
-
+ {/* submit button */}
+ <div className=' mt-10 flex justify-end'>
+<Button type='submit' onClick={(e)=>onSubmit(e)}>Submit</Button>
+ </div>
+ 
             </form>
         </div>
     </div>
