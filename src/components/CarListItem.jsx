@@ -13,6 +13,7 @@ import { Separator } from './ui/separator'
 function CarListItem({car}) {
   return (
     <div className='rounded-xl border cursor-pointer bg-white hover:shadow-md '>
+    <h2 className='absolute m-2 bg-[#008000] px-2 rounded-full text-sm '>New</h2>
         <img src={car?.image} width={'%100'} height={250}
         className='rounded-t-xl'/>
         <div className='p-4'>
