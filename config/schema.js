@@ -1,4 +1,4 @@
-import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
+import { json, pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
 
 export const CarListing=pgTable('CarListing',{
     id: serial('id').primaryKey(),
@@ -22,6 +22,7 @@ export const CarListing=pgTable('CarListing',{
     vin: varchar('vin'),
     offerType: text('offerType'),
     listingDescription: text('listingDescription').notNull(),
+    features:json('features'),
 
   
 });

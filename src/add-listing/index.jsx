@@ -10,9 +10,12 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { db } from './../../config'
 import { CarListing } from './../../config/schema'
+import IconField from './components/IconField'
 
 function AddNewListing() {
     const [formData, setFormData]=useState([]);
+    const[featuresData, setFeaturesData]=useState([]);
+
 
     const handleInputChange=(name,value)=>{
          setFormData((prevData)=>({
@@ -21,11 +24,21 @@ function AddNewListing() {
          }))
          console.log(formData);
     }
+    const handleFeatureChange=(name,value)=>{
+                setFeaturesData((prevData)=>({
+                    ...prevData,
+                    [name]:value
+                }))
+                console.log("features",featuresData);
+    }
     const onSubmit=async(e)=>{
         e.preventDefault();
         //console.log("formdata",formData);
         try{
-        const result= await db.insert(CarListing).values(formData);
+        const result= await db.insert(CarListing).values({
+            ...formData,
+            features:featuresData
+        });
         if(result)
         {
            console.log("success")
@@ -50,7 +63,9 @@ function AddNewListing() {
                         {
       carDetails.carDetails.map((item,index)=>(
         <div key={index}>
- <label className='text-sm'>{item?.label}{ item.required&&<span className='text-red-700'>*</span>}</label>
+ <label className='text-sm flex gap-2 items-center mb-2'>
+    <IconField icon={item?.icon}/>
+    {item?.label}{ item.required&&<span className='text-red-700'>*</span>}</label>
              {item.fieldType=='text'|| item.fieldType=='number'
               ? <InputField item={item} handleInputChange={handleInputChange}/>
               :item.fieldType=='dropdown'?<DropDownField item={item} handleInputChange={handleInputChange}/>
@@ -68,7 +83,7 @@ function AddNewListing() {
             <div className='grid grid-cols-2 md:grid-cols-3 gap-3'>
                 {features.features.map((item,index)=>(
                     <div key={index} className='flex gap-2 items-center'>
-                       <Checkbox onCheckedChange={(value)=>handleInputChange(item.name, value)}/> <h2>{item.label} 
+                       <Checkbox onCheckedChange={(value)=>handleFeatureChange(item.name, value)}/> <h2>{item.label} 
                         
                         </h2>
                     </div>
