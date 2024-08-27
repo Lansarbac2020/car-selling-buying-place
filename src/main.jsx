@@ -7,7 +7,7 @@ import Contact from './contact'
 import { ClerkProvider } from '@clerk/clerk-react'
 import Profile from './profile'
 import AddNewListing from './add-listing'
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/sonner"
 
 export default function RootLayout({ children }) {
   return (
@@ -49,6 +49,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
     <RouterProvider router={router}/>
+    <Toaster/>
     </ClerkProvider>
   </StrictMode>
 )

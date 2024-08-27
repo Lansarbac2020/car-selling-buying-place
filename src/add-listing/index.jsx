@@ -12,10 +12,17 @@ import { db } from './../../config'
 import { CarListing } from './../../config/schema'
 import IconField from './components/IconField'
 import UploadImages from './components/UploadImages'
+import { RiLoader3Line } from "react-icons/ri";
+import { toast } from './../components/ui/sonner'
+import { useNavigate } from 'react-router-dom'
+
 
 function AddNewListing() {
     const [formData, setFormData]=useState([]);
     const[featuresData, setFeaturesData]=useState([]);
+    const[triggerUploadImages,setTriggerUploadImages]=useState();
+    const[loading, setLoading]=useState(false)
+    const navigate=useNavigate();
 
 
     const handleInputChange=(name,value)=>{
@@ -33,16 +40,20 @@ function AddNewListing() {
                 console.log("features",featuresData);
     }
     const onSubmit=async(e)=>{
+        setLoading(true)
         e.preventDefault();
         //console.log("formdata",formData);
+        toast('Please..wait')
         try{
         const result= await db.insert(CarListing).values({
             ...formData,
             features:featuresData
-        });
+        }).returning({id:CarListing.id});
         if(result)
         {
            console.log("success")
+           setTriggerUploadImages(result[0]?.id);
+           setLoading(false)
         }
 
     }catch(error){
@@ -50,7 +61,9 @@ function AddNewListing() {
     
     }
     }
+    //   const UploadImages=()=>{
 
+    //   }
   return (
     <div>
         <Header/>
@@ -93,10 +106,15 @@ function AddNewListing() {
          </div>
          <Separator className='my-6'/>
         {/* car images */}
-        <UploadImages/>
+        <UploadImages triggerUploadImages={triggerUploadImages} setLoading={(v)=>{setLoading(v);navigate('/profile')}}/>
  {/* submit button */}
  <div className=' mt-10 flex justify-end'>
-<Button type='submit' onClick={(e)=>onSubmit(e)}>Submit</Button>
+<Button type='submit'
+disabled={loading}
+onClick={(e)=>onSubmit(e)}>
+    
+    {!loading?'Submit':<RiLoader3Line className='animate-spin text-lg' />}
+     </Button>
  </div>
  
             </form>
