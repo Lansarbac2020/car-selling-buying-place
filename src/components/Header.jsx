@@ -7,7 +7,7 @@ function Header() {
     const {user, isSignedIn}=useUser();
   return (
     <div className='flex justify-between items-center shadow-sm p-5'>
-        <img src='/onlycar.png' width={150} height={100}/>
+        <img src='/logo.svg' width={150} height={100}/>
         <ul className=' hidden md:flex  gap-16'>
             <li className='font-medium hover:scale-105 cursor-pointer transition-all duration-200 hover:text-slate-700'>Home</li>
             <li className='font-medium hover:scale-105 cursor-pointer transition-all duration-200 hover:text-slate-700'>Search</li>

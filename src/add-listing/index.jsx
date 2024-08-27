@@ -11,6 +11,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { db } from './../../config'
 import { CarListing } from './../../config/schema'
 import IconField from './components/IconField'
+import UploadImages from './components/UploadImages'
 
 function AddNewListing() {
     const [formData, setFormData]=useState([]);
@@ -90,7 +91,9 @@ function AddNewListing() {
                 ))}
             </div>
          </div>
+         <Separator className='my-6'/>
         {/* car images */}
+        <UploadImages/>
  {/* submit button */}
  <div className=' mt-10 flex justify-end'>
 <Button type='submit' onClick={(e)=>onSubmit(e)}>Submit</Button>

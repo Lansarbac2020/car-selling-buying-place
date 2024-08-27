@@ -23,6 +23,5 @@ export const CarListing=pgTable('CarListing',{
     offerType: text('offerType'),
     listingDescription: text('listingDescription').notNull(),
     features:json('features'),
-
   
 });

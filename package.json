@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "db:push": "drizzle-kit push",
-    "db:studio":"drizzle-kit studio"
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.4.2",
@@ -19,6 +19,7 @@
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.33.0",
