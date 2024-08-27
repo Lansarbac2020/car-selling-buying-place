@@ -13,8 +13,11 @@ import { CarListing } from './../../config/schema'
 import IconField from './components/IconField'
 import UploadImages from './components/UploadImages'
 import { RiLoader3Line } from "react-icons/ri";
-import { toast } from './../components/ui/sonner'
+
 import { useNavigate } from 'react-router-dom'
+import { useUser } from '@clerk/clerk-react'
+import moment from 'moment'
+import { toast } from 'sonner'
 
 
 function AddNewListing() {
@@ -23,6 +26,7 @@ function AddNewListing() {
     const[triggerUploadImages,setTriggerUploadImages]=useState();
     const[loading, setLoading]=useState(false)
     const navigate=useNavigate();
+    const{user}=useUser();
 
 
     const handleInputChange=(name,value)=>{
@@ -47,7 +51,10 @@ function AddNewListing() {
         try{
         const result= await db.insert(CarListing).values({
             ...formData,
-            features:featuresData
+            features:featuresData,
+            createdBy:user?.primaryEmailAddress.emailAddress,
+            postedOn:moment().format('DD/MM/yyyy')
+         
         }).returning({id:CarListing.id});
         if(result)
         {

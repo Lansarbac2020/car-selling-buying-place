@@ -34,7 +34,7 @@ function UploadImages({ triggerUploadImages,setLoading }) {
     };
 
     const UploadImageToServer = async () => {
-        setLoadinge(true)
+        setLoading(true)
         try {
             const uploadPromises = selectedFileList.map(async (file) => {
                 const fileName = `car-images/${Date.now()}-${file.name}`;
