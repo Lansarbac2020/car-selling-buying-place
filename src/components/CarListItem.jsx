@@ -20,7 +20,7 @@ function CarListItem({car}) {
     alt={car?.listingTitle || 'Car Image'} 
     width={'100%'}
     height={300} 
-    className='rounded-t-xl h-[180px] object-cover'
+    className='rounded-t-xl h-[190px] object-cover'
 />
 
         <div className='p-4'>
