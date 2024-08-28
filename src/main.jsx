@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/sonner"
 import Search from './components/Search'
 import SeachBycategory from './search/[category]'
 import SearchByOption from './search'
+import ListingDetails from './listing-details/[id]'
 
 export default function RootLayout({ children }) {
   return (
@@ -48,6 +49,10 @@ const router =createBrowserRouter([
   {
     path:'/search',
     element:<SearchByOption/>
+  },
+  {
+    path: "listing-details/:id",
+    element:<ListingDetails/>
   }
 ])
 // Import  publishable key

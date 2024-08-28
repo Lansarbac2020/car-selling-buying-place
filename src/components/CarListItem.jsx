@@ -9,11 +9,13 @@ import { TbBrandSpeedtest } from "react-icons/tb";
 
 
 import { Separator } from './ui/separator'
+import { Link, useParams } from 'react-router-dom';
 
 
 function CarListItem({car}) {
   return (
-    <div className=' px-5 rounded-xl border cursor-pointer bg-white hover:shadow-md '>
+    <Link to={'/listing-details/'+car?.id}>
+      <div className=' px-5 rounded-xl border cursor-pointer bg-white hover:shadow-md '>
     <h2 className='absolute m-2 bg-[#008000] px-2 rounded-full text-sm '>New</h2>
     <img 
     src={car?.images?.[0]?.imageUrl || 'default-image-url'} 
@@ -51,7 +53,8 @@ function CarListItem({car}) {
                     View Details <IoMdOpen className='text-sm'/></h2>
             </div>
         </div>
-    </div>
+    </div></Link>
+    
   )
 }
 
