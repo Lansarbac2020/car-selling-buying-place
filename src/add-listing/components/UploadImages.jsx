@@ -6,62 +6,73 @@ import React, { useEffect, useState } from 'react';
 import { IoIosCloseCircle } from "react-icons/io";
 import { db } from './../../../config';
 import { CarImages } from './../../../config/schema';
+import { eq } from 'drizzle-orm';
 
-function UploadImages({ triggerUploadImages,setLoading }) {
+function UploadImages({ triggerUploadImages, setLoading, carInfo, mode }) {
 
     const [selectedFileList, setSelectedFileList] = useState([]);
+    const [editCarImagesList, setEditCarImagesList] = useState([]);
+
+    useEffect(() => {
+        if (mode === 'edit' && carInfo?.images) {
+            setEditCarImagesList(carInfo.images.map(image => image?.imageUrl));
+        }
+    }, [carInfo, mode]);
 
     useEffect(() => {
         if (triggerUploadImages) {
-            UploadImageToServer();
+            uploadImagesToServer();
         }
     }, [triggerUploadImages]);
 
     const onFileSelected = (e) => {
-        const files = e.target.files;
-        console.log(files);
-        for (let i = 0; i < files?.length; i++) {
-            const file = files[i];
-            setSelectedFileList((prev) => [
-                ...prev, file
-            ]);
+        const files = Array.from(e.target.files);
+        console.log("Files selected:", files);
+        setSelectedFileList(prev => [...prev, ...files]);
+    };
+
+    const onImageRemove = (image) => {
+        console.log("Removing image:", image);
+        setSelectedFileList(prev => prev.filter(item => item !== image));
+    };
+
+    const onImageRemoveFromDB = async (image, index) => {
+        try {
+            const result = await db.delete(CarImages)
+                .where(eq(CarImages.id, carInfo?.images[index]?.id))
+                .returning({ id: CarImages.id });
+
+            //console.log("Removed image from DB:", result);
+            setEditCarImagesList(prev => prev.filter(item => item !== image));
+        } catch (error) {
+            //console.error("Error removing image from DB:", error);
         }
     };
 
-    const onImageRemove = (image, index) => {
-        const result = selectedFileList.filter((item) => item !== image);
-        setSelectedFileList(result);
-    };
-
-    const UploadImageToServer = async () => {
-        setLoading(true)
+    const uploadImagesToServer = async () => {
+        setLoading(true);
         try {
             const uploadPromises = selectedFileList.map(async (file) => {
                 const fileName = `car-images/${Date.now()}-${file.name}`;
                 const storageRef = ref(storage, fileName);
-                const metaData = {
-                    contentType: file.type,
-                };
 
-                const snapshot = await uploadBytes(storageRef, file, metaData);
-                console.log("Uploaded:", snapshot);
-
+                console.log(`Uploading ${file.name} to ${fileName}`);
+                const snapshot = await uploadBytes(storageRef, file);
                 const downloadUrl = await getDownloadURL(snapshot.ref);
-                console.log("Download URL:", downloadUrl);
 
-                // Add to DB here (if needed)
-               await db.insert(CarImages).values({
-                imageUrl:downloadUrl,
-                CarListingId:triggerUploadImages
-               })
+                console.log(`Uploaded ${file.name} successfully. URL: ${downloadUrl}`);
+                await db.insert(CarImages).values({
+                    imageUrl: downloadUrl,
+                    CarListingId: triggerUploadImages
+                });
             });
 
             await Promise.all(uploadPromises);
             console.log("All files uploaded successfully");
-            setLoading(false)
-
         } catch (error) {
             console.error("Error uploading files:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -69,10 +80,21 @@ function UploadImages({ triggerUploadImages,setLoading }) {
         <div>
             <h2 className='my-3 font-medium text-xl'>Upload Images</h2>
             <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5'>
+
+                {mode === 'edit' && editCarImagesList.map((image, index) => (
+                    <div key={index} className="relative">
+                        <IoIosCloseCircle
+                            onClick={() => onImageRemoveFromDB(image, index)}
+                            className='absolute m-2 text-lg cursor-pointer'
+                        />
+                        <img src={image} className='w-full h-[130px] object-cover' alt="Selected file preview" />
+                    </div>
+                ))}
+
                 {selectedFileList.map((image, index) => (
                     <div key={index} className="relative">
                         <IoIosCloseCircle
-                            onClick={() => onImageRemove(image, index)}
+                            onClick={() => onImageRemove(image)}
                             className='absolute m-2 text-lg cursor-pointer'
                         />
                         <img src={URL.createObjectURL(image)} className='w-full h-[130px] object-cover' alt="Selected file preview" />
@@ -81,12 +103,16 @@ function UploadImages({ triggerUploadImages,setLoading }) {
 
                 <label htmlFor='upload-images'>
                     <div className='border rounded-xl border-dotted border-primary bg-blue-100 p-10 cursor-pointer hover:shadow-lg'>
-                        <h2 className='text-lg text-center text-primary '>+</h2>
+                        <h2 className='text-lg text-center text-primary'>+</h2>
                     </div>
                 </label>
-                <Input type='file' multiple={true}
+                <Input
+                    type='file'
+                    multiple
                     onChange={onFileSelected}
-                    id='upload-images' className='opacity-0' />
+                    id='upload-images'
+                    className='opacity-0'
+                />
             </div>
         </div>
     );

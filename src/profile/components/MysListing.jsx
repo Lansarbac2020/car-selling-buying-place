@@ -32,12 +32,15 @@ useEffect(()=>{
                 </Link>
                 
      </div>
-     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7'>
+     <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7'>
         {carList.map((item,index)=>(
             <div key={index}>
              <CarListItem car={item}/>
              <div className='flex p-2 bg-gray-50 justify-between rounded-lg gap-3'>
-                <Button variant='outline' className="w-full">Edit</Button>
+                <Link className='w-full' to={'/add-listing?mode=edit&id='+item?.id}>
+                    <Button variant='outline' className="w-full">Edit</Button>
+                </Link>
+                
                 <Button variant='destructive'> <FaTrashAlt/> </Button>
              </div>
             </div>

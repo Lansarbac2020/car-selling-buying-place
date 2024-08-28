@@ -8,17 +8,19 @@ import {
   } from "@/components/ui/select"
   
 
-function DropDownField({item,handleInputChange}) {
+function DropDownField({item,handleInputChange, carInfo}) {
   return (
     <div>
-    <Select required={item.required} onValueChange={(value)=>handleInputChange(item.name,value) }>
+    <Select required={item.required} onValueChange={(value)=>handleInputChange(item.name,value) }
+    defaultValue={carInfo?.[item?.name]}
+    >
     <SelectTrigger className="w-full">
-      <SelectValue placeholder={item.label} />
+      <SelectValue placeholder={carInfo?.[item?.name]? carInfo?.[item?.name]:item.label} />
     </SelectTrigger>
     <SelectContent>
       
      {item.options.map((option,index)=>(
-        <SelectItem value={option}>{option}</SelectItem>
+        <SelectItem value={option} key={index}>{option}</SelectItem>
      ))}
     </SelectContent>
   </Select>
