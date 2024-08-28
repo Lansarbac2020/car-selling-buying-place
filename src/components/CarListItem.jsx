@@ -18,8 +18,8 @@ function CarListItem({car}) {
     <img 
     src={car?.images?.[0]?.imageUrl || 'default-image-url'} 
     alt={car?.listingTitle || 'Car Image'} 
-    width={'100%'} 
-    height={250} 
+    width={'100%'}
+    height={300} 
     className='rounded-t-xl h-[180px] object-cover'
 />
 

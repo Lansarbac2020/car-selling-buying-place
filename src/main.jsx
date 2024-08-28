@@ -8,6 +8,8 @@ import { ClerkProvider } from '@clerk/clerk-react'
 import Profile from './profile'
 import AddNewListing from './add-listing'
 import { Toaster } from "@/components/ui/sonner"
+import Search from './components/Search'
+import SeachBycategory from './search/[category]'
 
 export default function RootLayout({ children }) {
   return (
@@ -37,6 +39,10 @@ const router =createBrowserRouter([
   {
     path:'/add-listing',
     element: <AddNewListing/>
+  },
+  {
+    path:'/search/:category',
+    element:<SeachBycategory/>
   }
 ])
 // Import  publishable key

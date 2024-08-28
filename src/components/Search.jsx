@@ -47,7 +47,7 @@ function Search() {
   </SelectContent>
 </Select>
 <div>
-<IoSearchSharp className='text-[50px] text-white hover:scale-105 cursor-pointer transition-all duration-200 bg-primary rounded-full p-3' />
+<IoSearchSharp className='text-[50px] md:-translate-x-9 sm:mr-3 text-white hover:scale-105 cursor-pointer transition-all duration-200 bg-primary rounded-full p-3' />
 </div>
     </div>
   )
