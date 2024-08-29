@@ -4,6 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import MysListing from './components/MysListing'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Inbox from './components/Inbox'
 
 
 function Profile() {
@@ -19,7 +20,7 @@ function Profile() {
   <TabsContent value="my-listing">
     <MysListing/>
   </TabsContent>
-  <TabsContent value="inbox">Inbox</TabsContent>
+  <TabsContent value="inbox"><Inbox/></TabsContent>
   <TabsContent value="profile">Profile</TabsContent>
 </Tabs>
 

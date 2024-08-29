@@ -24,7 +24,7 @@ function MostSearchedCar() {
       const result=await db.select().from(CarListing).leftJoin(CarImages,eq(CarListing.id,CarImages.CarListingId))
       .limit(10)
       const resp=Service.FormatResult(result);
-      console.log(resp)
+      //console.log(resp)
       setCarList(resp)
     }
   return (
