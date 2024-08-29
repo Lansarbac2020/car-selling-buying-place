@@ -47,11 +47,7 @@ export default[
         "name": "engineSize",
         "icon": "FaWrench"
       },
-      {
-        "label": "Cylinder",
-        "name": "cylinder",
-        "icon": "FaCircle"
-      },
+      
       {
         "label": "Color",
         "name": "color",

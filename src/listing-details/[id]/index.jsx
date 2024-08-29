@@ -11,6 +11,10 @@ import Description from '../components/Description';
 import FeaturesList from '../components/Features';
 import Pricing from '../components/Pricing';
 import CarProperties from '../components/carSpecification';
+import OwnerInformation from '../components/OwnerInformation';
+import FinancialCalculator from '../components/FinancialCalculator';
+import MostSearchedCar from '@/components/MostSearchedCar';
+import Footer from '@/components/Footer';
 
 function ListingDetails() {
     const{id}=useParams();
@@ -43,6 +47,8 @@ useEffect(()=>{
              <Description carDetail={carDetail}/>
              {/* features */}
              <FeaturesList features={carDetail?.features}/>
+             {/* FinancialCalculator */}
+             <FinancialCalculator carDetail={carDetail}/>
             </div>
             {/* right */}
             <div className=''>
@@ -51,8 +57,11 @@ useEffect(()=>{
              {/* car properties */}
              <CarProperties carDetail={carDetail}/>
              {/* owner details */}
+             <OwnerInformation carDetail={carDetail}/>
             </div>
         </div>
+        <MostSearchedCar/>
+        <Footer/>
     </div>
   )
 }

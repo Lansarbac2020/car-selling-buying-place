@@ -24,7 +24,10 @@ export const CarListing=pgTable('CarListing',{
     listingDescription: text('listingDescription').notNull(),
     features:json('features'),
     createdBy: varchar('createdBy').notNull(),
+    userName: varchar('userName').notNull().default('Car-Ninja'),
+    userImageUrl: varchar('userImageUrl').default('https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18ybDc5Z21Id1FXOTVoaVRvQ3E5OURwN2dEVDgifQ?width=80'),
     postedOn:varchar('postedOn'),
+
   
 });
 
