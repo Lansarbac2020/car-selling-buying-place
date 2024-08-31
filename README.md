@@ -1,3 +1,4 @@
+
 # Car Marketplace: A React.js App with Vite, Drizzle ORM, Firebase, Clerck, Tailwind CSS, and SendBird
 
 This repository provides a robust foundation for building a feature-rich car marketplace application. It leverages the following technologies:
@@ -49,4 +50,11 @@ This repository provides a robust foundation for building a feature-rich car mar
 - Create separate pull requests for distinct changes.
 - Ensure code style consistency and write clear unit tests.
 **email**: lansarbacoro@gmail.com
+
+
+![Screenshot from 2024-08-31 20-38-55](https://github.com/user-attachments/assets/02c856da-4685-4068-825f-41f335a1886f)
+![Screenshot from 2024-08-31 20-39-58](https://github.com/user-attachments/assets/f66a4c20-bae9-46c5-9b41-a03ff1dd33b3)
+![Screenshot from 2024-08-31 20-39-47](https://github.com/user-attachments/assets/17c4f2cc-a1c5-411c-83d6-b8536d1bedc2)
+
+
 
