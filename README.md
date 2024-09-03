@@ -1,5 +1,5 @@
 
-# Car Marketplace: A React.js App with Vite, Drizzle ORM, Firebase, Clerck, Tailwind CSS, and SendBird
+# AutoHub: Your Car Marketplace: A React.js App with Vite, Drizzle ORM, Firebase, Clerck, Tailwind CSS, and SendBird
 
 This repository provides a robust foundation for building a feature-rich car marketplace application. It leverages the following technologies:
 
