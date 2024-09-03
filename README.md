@@ -50,6 +50,8 @@ This repository provides a robust foundation for building a feature-rich car mar
 - Ensure code style consistency and write clear unit tests.
 **email**: lansarbacoro@gmail.com
 
-![car details](image.png)
+
+
+
 
 
